@@ -10,24 +10,24 @@ jobs:
   exec:
     executor: cli
     parameters:
-      command:
+      Command:
         type: string
-      AWSProfile:
+      Profile:
         type: string
         default: default
-      AWSAccessKey:
+      AccessKey:
         type: string
-      AWSSecretKey:
+      SecretKey:
         type: string
     steps:
       - attach_workspace:
           at: ~/repo
       - run: 
           name: Configure AWS Access Key
-          command: aws configure --profile <<parameters.AWSProfile>> set aws_access_key_id "<<parameters.AWSAccessKey>>"
+          command: aws configure --profile <<parameters.Profile>> set aws_access_key_id "<<parameters.AccessKey>>"
       - run: 
           name: Configure AWS Secret Key
-          command: aws configure --profile <<parameters.AWSProfile>> set aws_secret_access_key "<<parameters.AWSSecretKey>>"
+          command: aws configure --profile <<parameters.Profile>> set aws_secret_access_key "<<parameters.SecretKey>>"
       - run: 
           name: Execute
-          command: <<parameters.command>>
+          command: <<parameters.Command>>

@@ -8,7 +8,7 @@
 # .circleci/config.yml
 
 orbs:
-  aws: sbstjn/aws@0.1.0
+  aws: sbstjn/aws@0.2.0
 
 workflows:
   version: 2
@@ -19,9 +19,9 @@ workflows:
       - aws/exec:
           name: deploy STABLE
 
-          AWSAccessKey: $STABLE_ACCESS
-          AWSSecretKey: $STABLE_SECRET
-          command: ENV=stable make update
+          AccessKey: $STABLE_ACCESS
+          SecretKey: $STABLE_SECRET
+          Command: ENV=stable make update
 
           requires: [ checkout ]
           filters:
@@ -39,9 +39,9 @@ workflows:
       - aws/exec:
           name: deploy PROD
 
-          AWSAccessKey: $PROD_ACCESS
-          AWSSecretKey: $PROD_SECRET
-          command: ENV=prod make update
+          AccessKey: $PROD_ACCESS
+          SecretKey: $PROD_SECRET
+          Command: ENV=prod make update
 
           requires: [ checkout ]
           filters:
