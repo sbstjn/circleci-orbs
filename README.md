@@ -18,9 +18,11 @@ workflows:
       - checkout
       - aws/exec:
           name: deploy STABLE
+
           AWSAccessKey: $STABLE_ACCESS
           AWSSecretKey: $STABLE_SECRET
           command: ENV=stable make update
+
           requires: [ checkout ]
           filters:
             branches:
@@ -36,9 +38,11 @@ workflows:
               ignore: /.*/
       - aws/exec:
           name: deploy PROD
+
           AWSAccessKey: $PROD_ACCESS
           AWSSecretKey: $PROD_SECRET
           command: ENV=prod make update
+
           requires: [ checkout ]
           filters:
             tags:
