@@ -1,0 +1,33 @@
+version: 2.1
+description: Re-usable AWS CLI with support for multiple profiles
+
+executors:
+  cli:
+    working_directory: ~/repo
+    docker:
+      - image: sbstjn/go
+jobs:
+  exec:
+    executor: cli
+    parameters:
+      command:
+        type: string
+      AWSProfile:
+        type: string
+        default: default
+      AWSAccessKey:
+        type: string
+      AWSSecretKey:
+        type: string
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run: 
+          name: Configure AWS Access Key
+          command: aws configure --profile <<parameters.AWSProfile>> set aws_access_key_id "<<parameters.AWSAccessKey>>"
+      - run: 
+          name: Configure AWS Secret Key
+          command: aws configure --profile <<parameters.AWSProfile>> set aws_secret_access_key "<<parameters.AWSSecretKey>>"
+      - run: 
+          name: Execute
+          command: <<parameters.command>>
